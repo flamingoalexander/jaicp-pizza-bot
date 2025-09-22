@@ -4,20 +4,31 @@ theme: /
 
     state: Start
         q!: $regex</start>
-        a: Начнём.
+        script:
+            $context.session = {};
+            $context.client = {};
+            $context.temp = {};
+            $context.response = {};
+        a: Привет! Я электронный помощник. Помогу вам заказать пиццу.
+        go!: /ChooseCity
 
-    state: Hello
-        intent!: /привет
-        a: Привет привет
+    state: ChooseCity || modal = true
+        a: Выберите свой город.
+        buttons:
+            "Санкт-Петербург" -> ./RememberCity
+            "Москва" -> ./RememberCity
 
-    state: Bye
-        intent!: /пока
-        a: Пока пока
+        state: RememberCity
+            script:
+                $client.city = $request.query;
+                $session.cart = [];
+            go!: /ChoosePizza
 
-    state: NoMatch
+        state: ClickButtons
+            q: *
+            a: Нажмите, пожалуйста, кнопку.
+            go!: ..
+
+    state: CatchAll || noContext=true
         event!: noMatch
-        a: Я не понял. Вы сказали: {{$request.query}}
-
-    state: Match
-        event!: match
-        a: {{$context.intent.answer}}
+        a: Я вас не понимаю.
