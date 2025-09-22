@@ -23,6 +23,22 @@
     }
   },
   "intents" : [ {
+    "path" : "/корзина",
+    "enabled" : true,
+    "shared" : false,
+    "phrases" : [ {
+      "text" : "покажи корзину"
+    }, {
+      "text" : "что в корзине"
+    }, {
+      "text" : "корзина"
+    } ],
+    "classificationRules" : {
+      "refs" : [ ]
+    },
+    "patterns" : [ "покажи корзину" ],
+    "priority" : 0
+  }, {
     "path" : "/пока",
     "enabled" : true,
     "shared" : false,

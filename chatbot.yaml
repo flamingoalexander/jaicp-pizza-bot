@@ -5,9 +5,6 @@ entryPoint: main.sc
 botEngine: v2
 language: ru
 
-tests:
-  include:
-    - test.xml
 
 nlp:
   intentNoMatchThresholds:
