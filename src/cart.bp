@@ -1,0 +1,11 @@
+{
+  "positions" : [ {
+    "id" : "/Cart",
+    "x" : 389,
+    "y" : 2890
+  }, {
+    "id" : "/GetPhoneNumber",
+    "x" : 235,
+    "y" : 628
+  } ]
+}

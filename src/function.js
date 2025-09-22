@@ -1,5 +1,8 @@
 function deleteFromCart(name){
     var $session = $jsapi.context().session;
+    // _.remove($session.cart, function(item){
+    //                 return item === name;
+    // })
     for(var i = 0; i < $session.cart.length; i++){
         var current_position = $session.cart[i];
         if(current_position.name === name){

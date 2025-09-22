@@ -1,0 +1,19 @@
+{
+  "positions" : [ {
+    "id" : "/ChoosePizza",
+    "x" : 2253,
+    "y" : 2891
+  }, {
+    "id" : "/ChooseVariant",
+    "x" : 748,
+    "y" : 4453
+  }, {
+    "id" : "/GetVariant",
+    "x" : -582,
+    "y" : 3584
+  }, {
+    "id" : "/ChooseQuantity",
+    "x" : 603,
+    "y" : 2154
+  } ]
+}

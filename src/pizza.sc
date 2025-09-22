@@ -1,23 +1,18 @@
-require: pizza.csv
-    name = pizza
-    var = pizza
-
+require: pizzas.js
 theme: /
 
     state: ChoosePizza
         a: Какую пиццу будем заказывать сегодня?
         script:
-            for (var id = 1; id < Object.keys(pizza).length + 1; id++) {
-                var regions = pizza[id].value.region;
-                if (_.contains(regions, $client.city)) {
-                    var button_name = pizza[id].value.title;
-                    $reactions.buttons({text: button_name, transition: 'GetName'})
+            _.forEach(pizzas, function(pizza) {
+                if (_.contains(pizza.regions, $client.city)) {
+                    $reactions.buttons({text: pizza.name, transition: 'GetName'})
                 }
-            }
+            })
 
         state: GetName
             script:
-                $session.pizza_name = $request.query;
+                $session.pizzaName = $request.query;
             go!: /ChooseVariant
 
         state: ClickButtons
@@ -28,15 +23,14 @@ theme: /
     state: ChooseVariant
         a: Выберите, пожалуйста, вариант:
         script:
-            for (var id = 1; id < Object.keys(pizza).length + 1; id++) {
-                if ($session.pizza_name == pizza[id].value.title) {
-                    var variations = pizza[id].value.variations;
-                    for(var i = 0; i < variations.length; i++){
-                        var button_name = variations[i].name + " за " + variations[i].price + " руб."
-                        $reactions.inlineButtons({text: button_name, callback_data: variations[i].id })
-                    }
-                }
-            }
+            var pizzaVariations = _.find(pizzas, function(pz) {
+                return pz.name === $session.pizzaName;
+            }).variations
+            _.forEach(pizzaVariations, function(variation) {
+                var variationString = variation.name + " за " + variation.price + " руб."
+                $reactions.buttons({text: variationString, transition: 'GetVariant' })
+            })
+            
         buttons:
             "Меню" -> /ChoosePizza
 
@@ -45,11 +39,10 @@ theme: /
                 a: Нажмите, пожалуйста, кнопку.
                 go!: ..
 
-    state: GetVariant
-        event: telegramCallbackQuery
-        script:
-            $session.pizza_id = parseInt($request.query);
-        go!: /ChooseQuantity
+        state: GetVariant
+            script:
+                $session.variationString = $request.query
+            go!: /ChooseQuantity
 
     state: ChooseQuantity
         a: Выберите, пожалуйста, количество:
@@ -66,7 +59,7 @@ theme: /
         state: GetQuantity
             script:
                 $session.quantity = parseInt($request.query);
-                $session.cart.push({name: $session.pizza_name, id: $session.pizza_id, quantity: $session.quantity});
+                $session.cart.push({name: $session.pizzaName, variationString: $session.variationString, quantity: $session.quantity});
             a: Хотите ли выбрать что-нибудь еще, или перейдем к оформлению заказа?
             buttons:
                 "Меню" -> /ChoosePizza

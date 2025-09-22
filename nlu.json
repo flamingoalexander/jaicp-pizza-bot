@@ -60,6 +60,37 @@
       "refs" : [ ]
     },
     "priority" : 0
+  }, {
+    "path" : "/Новый интент",
+    "enabled" : true,
+    "shared" : false,
+    "classificationRules" : {
+      "refs" : [ ]
+    },
+    "priority" : 0
+  }, {
+    "path" : "/Пользователь выбрал вариант пиццы",
+    "enabled" : true,
+    "shared" : false,
+    "phrases" : [ {
+      "text" : "Большая на толстом тесте за 399 руб."
+    } ],
+    "classificationRules" : {
+      "refs" : [ ]
+    },
+    "patterns" : [ ],
+    "slots" : [ {
+      "name" : "price",
+      "entity" : "duckling.number",
+      "required" : true,
+      "prompts" : [ ]
+    }, {
+      "name" : "name",
+      "entity" : "duckling.duration",
+      "required" : true,
+      "prompts" : [ ]
+    } ],
+    "priority" : 0
   } ],
   "entities" : [ ],
   "enabledSystemEntities" : [ "duckling.number", "duckling.time", "duckling.duration", "duckling.phone-number", "duckling.email", "duckling.url" ],
