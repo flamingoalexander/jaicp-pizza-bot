@@ -5,10 +5,10 @@ theme: /
     state: Cart
         intent!: /корзина
         a: Ваша корзина:
-        script:
+        scriptEs6:
             # $temp.totalSum = 0;
             var counter = 1
-            _.forEach($session.cart, function(cartItem) {
+            _.forEach($session.cart, cartItem => {
                 $reactions.answer(counter + ". " + cartItem.name + ", " + cartItem.variationString + " в количестве " + cartItem.quantity + " шт ");
                 counter++;
                 # $temp.totalSum += variation.price * current_position.quantity;

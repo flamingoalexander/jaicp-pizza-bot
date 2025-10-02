@@ -1,10 +1,9 @@
 require: pizzas.js
 theme: /
-
     state: ChoosePizza
         a: Какую пиццу будем заказывать сегодня?
-        script:
-            _.forEach(pizzas, function(pizza) {
+        scriptEs6:
+            _.forEach(pizzas, pizza => {
                 if (_.contains(pizza.regions, $client.city)) {
                     $reactions.buttons({text: pizza.name, transition: 'GetName'})
                 }
@@ -22,11 +21,11 @@ theme: /
 
     state: ChooseVariant
         a: Выберите, пожалуйста, вариант:
-        script:
-            var pizzaVariations = _.find(pizzas, function(pz) {
+        scriptEs6:
+            var pizzaVariations = _.find(pizzas, pz => {
                 return pz.name === $session.pizzaName;
             }).variations
-            _.forEach(pizzaVariations, function(variation) {
+            _.forEach(pizzaVariations, variation => {
                 var variationString = variation.name + " за " + variation.price + " руб."
                 $reactions.buttons({text: variationString, transition: 'GetVariant' })
             })
